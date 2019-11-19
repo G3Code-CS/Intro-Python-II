@@ -11,6 +11,12 @@ class Item:
         str = str + "{repr(self.description)}"
         return str
 
+    def drop_item(self):
+        print(f"\n You are dropping {self.name} in the current room")
+
+    def take_item(self):
+        print(f"\n You are taking {self.name} from the current room")
+
 
 class Septre(Item):
     def __init__(self, name, description, material):
