@@ -37,7 +37,9 @@ room = {
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
                 chamber! Sadly, it has already been completely emptied by
-                earlier adventurers. The only exit is to the south.""", []),
+                earlier adventurers. The only exit is to the south.""", [
+                Item('Book', 'Python for dummies')
+                ]),
 }
 
 
@@ -92,7 +94,7 @@ def possible_rooms(current_room):
     elif (current_room == 'treasure'):
         input_str += "\n(s)outh to narrow"
     if (len(room[np.current_room].items)) > 0:
-        input_str += f"\n(p)ick items - {room[np.current_room].items}"
+        input_str += f"\n(g)et items - {room[np.current_room].items}"
     if (len(np.items) > 0):
         input_str += f"\n(d)rop items - {np.items}"
     input_str += "\n(i)nventory of items avaialable with you currently"
@@ -144,7 +146,28 @@ while (is_done_playing is False):
             and hasattr(room[np.current_room], "w_to")):
         np.set_current_room(((room[np.current_room].w_to).name).lower()
                             .partition(' ')[0])
-
+    elif (user_input.lower() == 'g'):
+        is_item_moved = False
+        item_taken = input('Enter the name of the item to take from room')
+        for item in room[np.current_room].items:
+            if (item.lower() == item_taken.lower().strip()):
+                is_item_moved = True
+                np.add_item(item_taken)
+                room[np.current_room].remove_items(item_taken)
+                item.take_item()
+        if is_item_moved is False:
+            print('\n The item selected, is not available in the room to take')
+    elif (user_input.lower() == 'd'):
+        is_item_moved = False
+        item_dropped = input('Enter the name of the item to be dropped')
+        for item in np.items:
+            if (item.lower() == item_dropped.lower().strip()):
+                is_item_moved = True
+                np.remove_item(item_taken)
+                room[np.current_room].add_item(item_dropped)
+                item.drop_item()
+        if is_item_moved is False:
+            print('\n The item selected, is not available your inventory')        
     if (np.current_room == 'grand'):
         np.set_current_room('overlook')
 
