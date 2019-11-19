@@ -85,13 +85,17 @@ while (is_done_playing is False):
         is_done_playing = True
         break
     elif (user_input.lower() == 'n'):
-        np.set_current_room(((room[np.current_room].n_to).name).lower().partition(' ')[0])
+        np.set_current_room(((room[np.current_room].n_to).name)
+                            .lower().partition(' ')[0])
     elif (user_input.lower() == 's'):
-        np.set_current_room(((room[np.current_room].s_to).name).lower().partition(' ')[0])
+        np.set_current_room(((room[np.current_room].s_to).name).lower()
+                            .partition(' ')[0])
     elif (user_input.lower() == 'e'):
-        np.set_current_room(((room[np.current_room].e_to).name).lower().partition(' ')[0])
+        np.set_current_room(((room[np.current_room].e_to).name).lower()
+                            .partition(' ')[0])
     elif (user_input.lower() == 'w'):
-        np.set_current_room(((room[np.current_room].w_to).name).lower().partition(' ')[0])
+        np.set_current_room(((room[np.current_room].w_to).name).lower()
+                            .partition(' ')[0])
 
     if (np.current_room == 'grand'):
         np.set_current_room('overlook')

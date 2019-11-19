@@ -7,7 +7,7 @@ class Player:
         self.name = name
         self.items = []
         self.current_room = "outside"
-    
+   
     def __str__(self):
         str = f"Name:: {self.name}, Current room is :: {self.current_room}, "
         str = str + "Items: {self.items}"
