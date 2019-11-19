@@ -76,16 +76,26 @@ def possible_rooms(current_room):
 
 while (is_done_playing is False):
     print("\n----------------------------------------------------------------")
-    print(f"\n{np.name}, you are currently {room[np.current_room].name}")
+    print(f"\n{np.name}, u r currently in {room[np.current_room].name}")
     print(f"\n{room[np.current_room].description}")
     print("\n----------------------------------------------------------------")
     input_str = possible_rooms(np.current_room)
     user_input = input(f"\n{input_str}").lower().strip()[0]
-
     if (user_input.lower() == 'q'):
         is_done_playing = True
         break
-    if (user_input.lower() == 'n'):
-        np.set_current_room(room[np.current_room].n_to)
+    elif (user_input.lower() == 'n'):
+        np.set_current_room(((room[np.current_room].n_to).name).lower().partition(' ')[0])
+    elif (user_input.lower() == 's'):
+        np.set_current_room(((room[np.current_room].s_to).name).lower().partition(' ')[0])
+    elif (user_input.lower() == 'e'):
+        np.set_current_room(((room[np.current_room].e_to).name).lower().partition(' ')[0])
+    elif (user_input.lower() == 'w'):
+        np.set_current_room(((room[np.current_room].w_to).name).lower().partition(' ')[0])
+
+    if (np.current_room == 'grand'):
+        np.set_current_room('overlook')
+
+    print(f"\n\n The current room is {np.current_room}")
 
 print(f"\nAdios!! Thank you for playing, {np.name}. Come back soon!")
