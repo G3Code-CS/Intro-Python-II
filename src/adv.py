@@ -41,8 +41,8 @@ room['treasure'].s_to = room['narrow']
 # Make a new player object that is currently in the 'outside' room.
 
 player_name = input('\nPlease input your name to start the game: ')
-new_player = Player(player_name, [])
-
+np = Player(player_name, [])
+print(f"\nLet's start playing, {player_name}! Good Luck :)")
 # Write a loop that:
 #
 # * Prints the current room name
@@ -54,6 +54,11 @@ new_player = Player(player_name, [])
 #
 # If the user enters "q", quit the game.
 
-print(f"\n {new_player.name}, you are currently {new_player.current_room}")
 
 is_done_playing = False
+
+while (is_done_playing is False):
+    print("\n-----------------------*** GAME START ***-----------------------")
+    print(f"\n {np.name}, you are currently ")
+    print(f"{room[np.current_room].name}")
+    print(f"\n {room[np.current_room].description}")
