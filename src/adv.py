@@ -73,6 +73,11 @@ def possible_rooms(current_room):
         input_str += "\n(w)est to foyer\n(n)orth to treasure"
     elif (current_room == 'treasure'):
         input_str += "\n(s)outh to narrow"
+    if (len(room[np.current_room].items)) > 0:
+        input_str += f"\n(p)ick items - {room[np.current_room].items}"
+    if (len(np.items) > 0):
+        input_str += f"\n(d)rop items - {np.items}"
+    input_str += "\n(i)nventory of items avaialable with you currently"
     return input_str+"\n(q)uit to end game\n\nEnter your input:"
 
 
@@ -80,18 +85,31 @@ while (is_done_playing is False):
     print("\n----------------------------------------------------------------")
     print(f"\n{np.name}, u r currently in {room[np.current_room].name}")
     print(f"\n{room[np.current_room].description}")
+
+    if len(room[np.current_room].items) > 0:
+        print(f"\nItems in room: {room[np.current_room].items}")
+    else:
+        print("\nThere is currently, no items in this room.")
     print("\n----------------------------------------------------------------")
+
     input_str = possible_rooms(np.current_room)
     user_input = input(f"\n{input_str}")
     if (len(user_input) == 0 or len(user_input.strip()) == 0):
         user_input = 'q'
     else:
         user_input = user_input.lower().strip()[0]
-        
+
     if (user_input.lower() == 'q' or len(user_input) == 0
             or len(user_input.strip()) == 0):
         is_done_playing = True
         break
+    elif (user_input.lower() == 'i'):
+        if len(np.items) > 0:
+            print("\n********** ITEMS AVAILABLE WITH YOU CURRENTLY **********")
+            for item in np.items:
+                print(f"\n{item.name} :: {item.description}")
+        else:
+            print("\n** NO ITEMS AVAIALBLE IN YOUR INVENTORY CURRENTLY **")
     elif (user_input.lower() == 'n'
             and hasattr(room[np.current_room], "n_to")):
         np.set_current_room(((room[np.current_room].n_to).name)
