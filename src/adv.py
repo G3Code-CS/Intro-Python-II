@@ -41,6 +41,8 @@ room['treasure'].s_to = room['narrow']
 # Make a new player object that is currently in the 'outside' room.
 
 player_name = input('\nPlease input your name to start the game: ')
+if (len(player_name) == 0 or len(player_name.strip()) == 0):
+    player_name = 'Anonymous'
 np = Player(player_name, [])
 print(f"\nLet's start playing, {player_name}! Good Luck :)")
 # Write a loop that:
@@ -80,20 +82,30 @@ while (is_done_playing is False):
     print(f"\n{room[np.current_room].description}")
     print("\n----------------------------------------------------------------")
     input_str = possible_rooms(np.current_room)
-    user_input = input(f"\n{input_str}").lower().strip()[0]
-    if (user_input.lower() == 'q'):
+    user_input = input(f"\n{input_str}")
+    if (len(user_input) == 0 or len(user_input.strip()) == 0):
+        user_input = 'q'
+    else:
+        user_input = user_input.lower().strip()[0]
+        
+    if (user_input.lower() == 'q' or len(user_input) == 0
+            or len(user_input.strip()) == 0):
         is_done_playing = True
         break
-    elif (user_input.lower() == 'n'):
+    elif (user_input.lower() == 'n'
+            and hasattr(room[np.current_room], "n_to")):
         np.set_current_room(((room[np.current_room].n_to).name)
                             .lower().partition(' ')[0])
-    elif (user_input.lower() == 's'):
+    elif (user_input.lower() == 's'
+            and hasattr(room[np.current_room], "s_to")):
         np.set_current_room(((room[np.current_room].s_to).name).lower()
                             .partition(' ')[0])
-    elif (user_input.lower() == 'e'):
+    elif (user_input.lower() == 'e'
+            and hasattr(room[np.current_room], "e_to")):
         np.set_current_room(((room[np.current_room].e_to).name).lower()
                             .partition(' ')[0])
-    elif (user_input.lower() == 'w'):
+    elif (user_input.lower() == 'w'
+            and hasattr(room[np.current_room], "w_to")):
         np.set_current_room(((room[np.current_room].w_to).name).lower()
                             .partition(' ')[0])
 
