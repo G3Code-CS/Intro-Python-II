@@ -7,9 +7,30 @@ class Room:
         self.name = name
         self.description = description
         self.items = []
+    
+    def get_name(self):
+        return self.name
 
     def __str__(self):
-        return f"{self.name} : {self.description} : {self.items}"
+        str = f"Room: {self.name} :: Description: {self.description} ::"
+        str = str + " Items: {self.items}"
 
     def __repr__(self):
-        return f"Room: ({repr(self.name)})"
+        str = f"Room: ({repr(self.name)}), Description:"
+        str = str + " ({repr(self.description)}), Items: ({repr(self.items)})"
+        return str
+
+    def print_items(self):
+        for i in self.items:
+            print(i)
+        print("\n")
+
+    def add_item(self, item):
+        return self.items.append(item)
+
+    def remove_items(self, item):
+        new_list = []
+        for i in self.items:
+            if (i == item):
+                new_list.append(item)
+        print(f"\n**The new list is {new_list}**\n")
