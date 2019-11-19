@@ -7,7 +7,7 @@ class Room:
         self.name = name
         self.description = description
         self.items = items
-    
+
     def get_name(self):
         return self.name
 
@@ -33,4 +33,5 @@ class Room:
         for i in self.items:
             if (i == item):
                 new_list.append(item)
+        self.items = new_list
         print(f"\n**The new list is {new_list}**\n")

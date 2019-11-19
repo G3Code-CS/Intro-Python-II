@@ -7,7 +7,7 @@ class Player:
         self.name = name
         self.items = []
         self.current_room = "outside"
-   
+
     def __str__(self):
         str = f"Name:: {self.name}, Current room is :: {self.current_room}, "
         str = str + "Items: {self.items}"
@@ -29,6 +29,7 @@ class Player:
         for i in self.items:
             if (i == item):
                 new_list.append(item)
+        self.items = new_list
         print(f"\n\n ** The new items list for the player is {new_list}**")
 
     def set_current_room(self, current_room):

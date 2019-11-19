@@ -85,7 +85,7 @@ def possible_rooms(current_room):
     if (current_room == 'outside'):
         input_str += "\n(n)orth to Foyer"
     elif (current_room == 'foyer'):
-        input_str += "\n(n)orth to overlook\n (s)outh to outside"
+        input_str += "\n(n)orth to overlook\n(s)outh to outside"
         input_str += "\n(e)ast to narrow"
     elif (current_room == 'overlook'):
         input_str += "\n(s)outh to foyer"
@@ -138,6 +138,11 @@ while (is_done_playing is False):
             and hasattr(room[np.current_room], "s_to")):
         np.set_current_room(((room[np.current_room].s_to).name).lower()
                             .partition(' ')[0])
+        if (np.current_room == 'outside' and np.items[0].name == 'Book'):
+            print("\n*****************************************************\n")
+            print("\n***YOU HAVE WON THE GAME!! NOW GO READ THE BOOK :)***\n")
+            print("\n*****************************************************\n")
+            break
     elif (user_input.lower() == 'e'
             and hasattr(room[np.current_room], "e_to")):
         np.set_current_room(((room[np.current_room].e_to).name).lower()
@@ -148,29 +153,29 @@ while (is_done_playing is False):
                             .partition(' ')[0])
     elif (user_input.lower() == 'g'):
         is_item_moved = False
-        item_taken = input('Enter the name of the item to take from room')
+        item_taken = input('\nEnter the name of the item to take from room: ')
         for item in room[np.current_room].items:
-            if (item.lower() == item_taken.lower().strip()):
+            if (item.name.lower() == item_taken.lower().strip()):
                 is_item_moved = True
-                np.add_item(item_taken)
+                np.add_item(item)
                 room[np.current_room].remove_items(item_taken)
                 item.take_item()
         if is_item_moved is False:
             print('\n The item selected, is not available in the room to take')
     elif (user_input.lower() == 'd'):
         is_item_moved = False
-        item_dropped = input('Enter the name of the item to be dropped')
+        item_dropped = input('\nEnter the name of the item to be dropped: ')
         for item in np.items:
-            if (item.lower() == item_dropped.lower().strip()):
+            if (item.name.lower() == item_dropped.lower().strip()):
                 is_item_moved = True
                 np.remove_item(item_taken)
-                room[np.current_room].add_item(item_dropped)
+                room[np.current_room].add_item(item)
                 item.drop_item()
         if is_item_moved is False:
-            print('\n The item selected, is not available your inventory')        
+            print('\n The item selected, is not available your inventory')
     if (np.current_room == 'grand'):
         np.set_current_room('overlook')
 
     print(f"\n\n The current room is {np.current_room}")
 
-print(f"\nAdios!! Thank you for playing, {np.name}. Come back soon!")
+print(f"\nAdios!! Thank you for playing, {np.name}. Come back soon!\n\n")
