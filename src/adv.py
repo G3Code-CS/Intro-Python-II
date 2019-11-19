@@ -57,8 +57,35 @@ print(f"\nLet's start playing, {player_name}! Good Luck :)")
 
 is_done_playing = False
 
+
+def possible_rooms(current_room):
+    input_str = "You can choose one of following room(s) to move - \n"
+    if (current_room == 'outside'):
+        input_str += "\n(n)orth to Foyer"
+    elif (current_room == 'foyer'):
+        input_str += "\n(n)orth to overlook\n (s)outh to outside"
+        input_str += "\n(e)ast to narrow"
+    elif (current_room == 'overlook'):
+        input_str += "\n(s)outh to foyer"
+    elif (current_room == 'narrow'):
+        input_str += "\n(w)est to foyer\n(n)orth to treasure"
+    elif (current_room == 'treasure'):
+        input_str += "\n(s)outh to narrow"
+    return input_str+"\n(q)uit to end game\n\nEnter your input:"
+
+
 while (is_done_playing is False):
-    print("\n-----------------------*** GAME START ***-----------------------")
-    print(f"\n {np.name}, you are currently ")
-    print(f"{room[np.current_room].name}")
-    print(f"\n {room[np.current_room].description}")
+    print("\n----------------------------------------------------------------")
+    print(f"\n{np.name}, you are currently {room[np.current_room].name}")
+    print(f"\n{room[np.current_room].description}")
+    print("\n----------------------------------------------------------------")
+    input_str = possible_rooms(np.current_room)
+    user_input = input(f"\n{input_str}").lower().strip()[0]
+
+    if (user_input.lower() == 'q'):
+        is_done_playing = True
+        break
+    if (user_input.lower() == 'n'):
+        np.set_current_room(room[np.current_room].n_to)
+
+print(f"\nAdios!! Thank you for playing, {np.name}. Come back soon!")
